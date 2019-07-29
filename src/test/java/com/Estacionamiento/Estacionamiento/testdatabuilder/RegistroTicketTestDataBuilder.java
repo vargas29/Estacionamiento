@@ -1,10 +1,9 @@
 package com.Estacionamiento.Estacionamiento.testdatabuilder;
 
 import java.util.Date;
-import lombok.Data;
 
 import co.com.estacionamiento.dominio.modelo.Ticket;
-@Data
+
 public class RegistroTicketTestDataBuilder {
 
 	

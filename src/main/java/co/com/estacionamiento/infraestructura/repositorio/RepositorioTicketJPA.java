@@ -1,7 +1,5 @@
 package co.com.estacionamiento.infraestructura.repositorio;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-
 import java.util.List;
 
 import javax.transaction.Transactional;
