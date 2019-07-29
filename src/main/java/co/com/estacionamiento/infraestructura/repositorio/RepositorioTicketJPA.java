@@ -30,7 +30,7 @@ public class RepositorioTicketJPA implements ticketRepositorio  {
 	
 	 @Transactional
 	public Ticket registrarTicket(Ticket estacionamiento) {
-		 
+		 System.out.println(estacionamiento);
 		ticketEntidad entidadTicket = repositorioTicketMemoria.save(mapeadorTicket.convertirAEntidad(estacionamiento));
 		return mapeadorTicket.convertirADominio(entidadTicket);
 	}
