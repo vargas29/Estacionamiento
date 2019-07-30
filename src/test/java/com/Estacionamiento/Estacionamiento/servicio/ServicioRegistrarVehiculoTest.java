@@ -15,7 +15,10 @@ import com.Estacionamiento.Estacionamiento.testdatabuilder.RegistroTicketTestDat
 
 import co.com.estacionamiento.dominio.servicios.RegistrarEntradaVehiculo;
 import co.com.estacionamiento.dominio.constante.ticketConstante;
-import  co.com.estacionamiento.dominio.excepciones.*;
+import  co.com.estacionamiento.dominio.excepciones.ExcepcionExistenciaEstacionamiento;
+import  co.com.estacionamiento.dominio.excepciones.ExcepcionPlacaEmpiezaConA;
+import co.com.estacionamiento.dominio.excepciones.ExcepcionValidaCupoVehiculo;
+import co.com.estacionamiento.dominio.excepciones.ExcepcionCuposTipoVehiculo;
 import co.com.estacionamiento.dominio.modelo.Ticket;
 import co.com.estacionamiento.dominio.repositorio.ticketRepositorio;
 
@@ -27,11 +30,13 @@ public class ServicioRegistrarVehiculoTest {
 	
 	private ticketRepositorio TicketRepositorio;
 	private  RegistroTicketTestDataBuilder ticketTestDataBuilder = new RegistroTicketTestDataBuilder();
+
 	
 	@Before
 	public void prepararDatos() {
 		// arrange
 		this.TicketRepositorio = mock(ticketRepositorio.class);
+		RegistrarEntradaVehiculo servicio = new RegistrarEntradaVehiculo(TicketRepositorio);
 	}
 	
 	
@@ -59,7 +64,7 @@ public class ServicioRegistrarVehiculoTest {
 		 //Act
         try {
         	crearServicio.registrar(ticket);
-            fail();
+          
         }catch (ExcepcionPlacaEmpiezaConA e){
             // Assert
             assertEquals(ticketConstante.PLACA_INICIAN_LETRA_A, e.getMessage());
@@ -77,44 +82,45 @@ public class ServicioRegistrarVehiculoTest {
 
        	try {
 	    	servicio.registrar(ticket);
-            //fail();
+          
         }catch (ExcepcionCuposTipoVehiculo e){
             // Assert
             assertEquals(ticketConstante.NO_EXISTE_CUPOS_DISPONIBLES_TIPO_VEHICULO, e.getMessage());
         }
 	}
 	
-	
-
-	
 	@Test
-	public void ValidarDisponibilidadCupoMoto() {
+	public void validarExcepcionCupoMoto() {
 	    RegistrarEntradaVehiculo servicio = new RegistrarEntradaVehiculo(TicketRepositorio);
 		Ticket ticket=  ticketTestDataBuilder.build();
 		
-	
+		ticket.setTipoVehiculo(ticketConstante.TIPO_VEHICULO_MOTO);
 		when(TicketRepositorio.numCuposTipoVehiculo(ticketConstante.TIPO_VEHICULO_MOTO)).thenReturn(ticketConstante.NUMERO_MOTOS);
 
        	try {
 	    	servicio.registrar(ticket);
-            
-        }catch (ExcepcionExistenciaEstacionamiento e){
+        }catch (ExcepcionCuposTipoVehiculo e){
             // Assert
-            assertEquals(ticketConstante.NO_EXISTE_CUPOS, e.getMessage());
+            assertEquals(ticketConstante.NO_EXISTE_CUPOS_DISPONIBLES_TIPO_VEHICULO, e.getMessage());
         }
 	}
+	
+
+	
+
 	
 	@Test
 	public void validarCupoVehiculo() {
 	    RegistrarEntradaVehiculo servicio = new RegistrarEntradaVehiculo(TicketRepositorio);
+	    
 		Ticket ticket=  ticketTestDataBuilder.build();
 		ticket.setPlacaVehiculo("CBP123");
+		when(TicketRepositorio.buscarTicket(ticket.getPlacaVehiculo())).thenReturn(ticket);
 	
-		when(TicketRepositorio.buscarTicket(ticketConstante.NUMERO_PLACA)).thenReturn(ticket);
-		System.out.println(ticketConstante.NUMERO_PLACA);
+		
        	try {
 	    	servicio.registrar(ticket);
-          
+	 
         }catch (ExcepcionValidaCupoVehiculo e){
             // Assert
             assertEquals(ticketConstante.LA_PLACA_SE_ENCUENTRA_REGISTRADA, e.getMessage());

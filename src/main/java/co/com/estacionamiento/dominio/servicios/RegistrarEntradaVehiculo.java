@@ -55,24 +55,33 @@ public class RegistrarEntradaVehiculo {
 		
 	}
 	
-	
-	private void ValidarDisponibilidadCupo() {
-		
+	private int calcularCupos() {
 		int  numeroCuposMoto =this.repositorioTicket.numCuposTipoVehiculo(ticketConstante.TIPO_VEHICULO_MOTO);
 		int  numeroCuposCarro =this.repositorioTicket.numCuposTipoVehiculo(ticketConstante.TIPO_VEHICULO_CARRO);
-		int numeroCupos =numeroCuposMoto+numeroCuposCarro;
-
+		int numeroCupos =0;
 		if(numeroCuposMoto == ticketConstante.NUMERO_MOTOS && numeroCuposCarro == ticketConstante.NUMERO_CARROS ) {
-			if( ticketConstante.NUMERO_TOTAL_VEHICULOS ==numeroCupos ) 
+		
+			numeroCupos =numeroCuposMoto+numeroCuposCarro;
+		}
+		return numeroCupos;
+	}
+	
+	private void ValidarDisponibilidadCupo() {
+		int numeroCupo=calcularCupos();
+		
+
+		
+			if( ticketConstante.NUMERO_TOTAL_VEHICULOS == numeroCupo ) 
 				throw new ExcepcionExistenciaEstacionamiento(ticketConstante.NO_EXISTE_CUPOS);
 		}
 		
-		
-	}
 	
 	
 	private void ValidaCupoVehiculoExiste( String placaVehiculo) {
+		System.out.println(placaVehiculo);
 		Ticket  ticket =this.repositorioTicket.buscarTicket(placaVehiculo.toLowerCase());
+		System.out.println(this.repositorioTicket.listarTickets());
+		System.out.println(ticket);
 		if( ticket != null ) 
 			throw new ExcepcionValidaCupoVehiculo(ticketConstante.LA_PLACA_SE_ENCUENTRA_REGISTRADA);
 	}

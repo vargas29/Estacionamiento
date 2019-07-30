@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.com.estacionamiento.aplicacion.comando.comandoTicket;
 import co.com.estacionamiento.dominio.modelo.Ticket;
 import co.com.estacionamiento.aplicacion.comando.manejador.ManejadorRegistarTicket;
 import co.com.estacionamiento.aplicacion.consulta.ManejardorListarVehiculos;

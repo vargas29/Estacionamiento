@@ -1,8 +1,11 @@
+
 package com.Estacionamiento.Estacionamiento.testdatabuilder;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import co.com.estacionamiento.dominio.modelo.Ticket;
+import co.com.estacionamiento.dominio.servicios.ActualizaEstadoTicket;
 import co.com.estacionamiento.dominio.constante.ticketConstante;
 
 public class TicketTestDataBuillder {
@@ -15,13 +18,15 @@ public class TicketTestDataBuillder {
 	private String cilindraje;
 	private double total;
 	
+
+	@SuppressWarnings("deprecation")
 	public TicketTestDataBuillder() {
 		this.id=1;
-		this.tipoVehiculo="500CC";
-		this.placaVehiculo="500CC";
-		this.fechaIngreso=new Date();
+		this.tipoVehiculo="Moto";
+		this.placaVehiculo="QWE123";
+		this.fechaIngreso=new Date("sun Jul 28 15:27:23 2019");
 		this.fechaSalida=null;
-		this.cilindraje="500CC";
+		this.cilindraje="560";
 		this.total=0.0;
 	}
 	

@@ -35,5 +35,6 @@ public class ticketConstante {
 	public static final String NO_EXISTE_CUPOS_DISPONIBLES_TIPO_VEHICULO = "No Existe cupos disponibles para este tipo den vehiculo";
 	public static final String TIPO_DE_VHICULO_NO_DISPONIBLE="Este tipo de vehiculo no se puede registrar";
 	public static final String NO_EXISTE_CUPOS= "No Existe cupos disponible";
+	public static final String TOTAL_SALIDA_VACIA= "Vuelva a reingresar la salidad";
 
 }

@@ -21,7 +21,7 @@ public class RegistroTicketTestDataBuilder {
 		this.placaVehiculo="PPP123";
 		this.fechaIngreso=new Date();
 		this.fechaSalida=null;
-		this.cilindraje="500CC";
+		this.cilindraje="";
 		this.total=0.0;
 	}
 	
